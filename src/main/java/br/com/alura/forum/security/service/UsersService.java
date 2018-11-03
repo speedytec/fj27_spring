@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import br.com.alura.forum.model.User;
 import br.com.alura.forum.repository.UserRepository;
 
@@ -19,8 +18,6 @@ public class UsersService implements UserDetailsService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	
-	
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -31,6 +28,12 @@ public class UsersService implements UserDetailsService {
 		return possibleUser.orElseThrow(()-> new UsernameNotFoundException("Nao foi possivel localizar o usuario com"
 				+ "o email" + username
 				));
+	}
+	
+	public UserDetails loadUserById (Long userId){
+		Optional<User> possibleUser = userRepository.findById(userId);
+		
+		return possibleUser.orElseThrow(() -> new UsernameNotFoundException("Nao foi possivel localizar usuario com id: " +userId));
 	}
 
 }
