@@ -19,7 +19,9 @@ import br.com.alura.forum.security.service.UsersService;
 
 public class JwtAuthenticationFilter  extends OncePerRequestFilter{
 
+	
 	UsersService usersService;
+	
 	TokenManager tokenManager;
 	
 	
@@ -41,6 +43,7 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter{
 		if (tokenManager.isValid(jwt)){
 			Long userId = tokenManager.getUserIdFromToken(jwt);
 			UserDetails userDetails = usersService.loadUserById(userId);
+			
 			UsernamePasswordAuthenticationToken authentication =
 					new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 			

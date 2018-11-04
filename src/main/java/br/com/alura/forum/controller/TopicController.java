@@ -7,7 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,6 +29,14 @@ public class TopicController {
 
 	@Autowired
 	private TopicRepository topicRepository;
+	
+	/*@ResponseBody
+	@GetMapping(value ="/", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> create() {
+	    return ResponseEntity.status(HttpStatus.CREATED)
+	       .contentType(MediaType.TEXT_PLAIN)
+	       .body("Resposta");
+	}*/
 	
 	@ResponseBody
 	@GetMapping(value ="/api/topics", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -45,6 +45,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/auth/**").permitAll()
 				.anyRequest().authenticated()
 			.and()
+				.cors()
+			.and()
 				.csrf().disable()
 			.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -60,7 +62,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	@Bean(BeanIds.AUTHENTICATION_MANAGER)
 	public AuthenticationManager authenticationManagerBean() throws Exception {
-		// TODO Auto-generated method stub
 		return super.authenticationManagerBean();
 	}
 
