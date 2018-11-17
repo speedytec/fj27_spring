@@ -1,5 +1,6 @@
 package br.com.alura.forum.controller;
 
+
 import java.net.URI;
 
 import javax.validation.Valid;
@@ -22,6 +23,7 @@ import br.com.alura.forum.model.Answer;
 import br.com.alura.forum.model.User;
 import br.com.alura.forum.model.topic_domain.Topic;
 import br.com.alura.forum.repository.AnswerRepository;
+import br.com.alura.forum.service.NewReplyProcessorService;
 
 @Controller
 @RequestMapping("/api/topics/{topicId}/answers")
@@ -32,6 +34,9 @@ public class AnswerController {
     
     @Autowired
     private AnswerRepository answerRepository;
+    
+    @Autowired
+    private NewReplyProcessorService newReplyProcessorService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AnswerOutputDto> answerTopic(@PathVariable Long topicId,
@@ -43,6 +48,7 @@ public class AnswerController {
         Answer answer = newAnswerDto.build(topic, loggedUser);
 
         this.answerRepository.save(answer);
+        this.newReplyProcessorService.execute(answer);
         
         URI path = uriBuilder
                 .path("/api/topics/{topicId}/answers/{answer}")
