@@ -25,7 +25,7 @@ public class RegisterUnansweredTopicsTask {
 	private OpenTopicsByCategoryRepository openTopicsByCategoryRepository;
 	
 	//@Scheduled(cron = "0 0 20 * * *")
-	@Scheduled(fixedRate = 20000)
+	@Scheduled(fixedRate = 600000)
 	public void execute(){
 		
 		logger.info("Atualizando topicos");

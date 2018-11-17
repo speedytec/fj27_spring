@@ -50,11 +50,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Programação</td>
-                                <td>11/10/2018</td>
-                                <td>21</td>
+                            <tr th:each="topics : ${openTopics}">
+                                <td th:text="${topics.id}">1</td>
+                                <td th:text="${topics.categoryName}">Programação</td>
+                                <td th:text="${#temporals.format(topics.date, 'dd/MM/yyyy - EEEE', 'pt')}">11/10/2018</td>
+                                <td th:text="${topics.topicCount}">21</td>
                             </tr>
                         </tbody>
                     </table>
@@ -63,14 +63,14 @@
         </div>
     </div>
 
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/jquery.dataTables.min.js"></script>
-    <script src="/js/dataTables.bootstrap.min.js"></script>
+    < src="/js/jquery.min.js"></>
+    < src="/js/jquery.dataTables.min.js"></>
+    < src="/js/dataTables.bootstrap.min.js"></>
 
-    <script>
+    <>
         $(document).ready(function() {
             $('#open-topics-table').DataTable();
         } );
-    </script>
+    </>
 </body>
 </html>
