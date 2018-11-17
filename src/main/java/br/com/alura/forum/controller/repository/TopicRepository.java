@@ -3,16 +3,15 @@ package br.com.alura.forum.controller.repository;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
+import br.com.alura.forum.model.OpenTopicsByCategory;
 import br.com.alura.forum.model.User;
 import br.com.alura.forum.model.topic_domain.Topic;
 
@@ -32,6 +31,14 @@ public interface TopicRepository extends Repository<Topic, Long> ,JpaSpecificati
 	Topic findById(Long id);
 	
 	Topic save(Topic topic);
+	
+	@Query("select new br.com.alura.forum.model.OpenTopicsByCategory(" +
+			"t.course.subcategory.category.name as categoryName, " +
+			"count(t) as topicCount, " +
+			"now() as instant) from Topic t " +
+			"where t.status = 'NOT_ANSWERED' " +
+			"group by t.course.subcategory.category")
+	List<OpenTopicsByCategory> findOpenTopicsByCategory();
 	
 	
 	
