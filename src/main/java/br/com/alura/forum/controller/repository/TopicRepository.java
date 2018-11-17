@@ -3,6 +3,7 @@ package br.com.alura.forum.controller.repository;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +16,7 @@ import org.springframework.data.repository.Repository;
 import br.com.alura.forum.model.User;
 import br.com.alura.forum.model.topic_domain.Topic;
 
-public interface TopicRepository extends JpaRepository<Topic, Long> ,JpaSpecificationExecutor<Topic>{
+public interface TopicRepository extends Repository<Topic, Long> ,JpaSpecificationExecutor<Topic>{
 	
 	@Query("select t from Topic t")
 	List<Topic> list();
@@ -27,6 +28,10 @@ public interface TopicRepository extends JpaRepository<Topic, Long> ,JpaSpecific
 	Page<Topic> findAll(Specification<Topic> topicSearchSpecification, Pageable pageRequest);
 
 	List<Topic> findByOwnerAndCreationInstantAfterOrderByCreationInstantAsc(User loggedUser, Instant oneHourAgo);
+	
+	Topic findById(Long id);
+	
+	Topic save(Topic topic);
 	
 	
 	
