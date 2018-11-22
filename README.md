@@ -1,1 +1,1 @@
-API para criar/ listar e adminstrar topicos de um Forum
+API para criar, listar e administrar tópicos de um Forum
